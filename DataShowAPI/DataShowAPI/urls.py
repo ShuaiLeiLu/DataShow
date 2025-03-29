@@ -4,21 +4,18 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework.documentation import include_docs_urls
 from records import views
-
+from records.views import TradeStatsView
 urlpatterns = [
     # 管理后台
     path('admin/', admin.site.urls),
-
     # API接口
     path('api/records/', views.RecordList.as_view(), name='records-list'),
     path('api/upload/', views.FileUploadView.as_view(), name='file-upload'),
-
     # 自动化API文档
     path('api/docs/', include_docs_urls(title='DataShow API')),
-
     # 健康检查端点
     path('health/', TemplateView.as_view(template_name='health_check.html'), name='health-check'),
-
+    path('api/stats/', TradeStatsView.as_view(), name='trade-stats'),
     # 前端入口（需先构建React项目）
     # path('', TemplateView.as_view(template_name='index.html')),
 ]
